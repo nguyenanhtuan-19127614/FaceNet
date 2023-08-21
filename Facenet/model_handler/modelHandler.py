@@ -6,13 +6,27 @@ from keras.models import Model
 from keras.layers import Dense, Lambda, Flatten, Input
 from keras.applications import VGG16
 
-from pathlib import Path
 import os
+import base64
+from PIL import Image,ImageOps
+import cv2
+import io
+import numpy as np
 
 class FacenetModel:
 
+  imageSize = 224
+
   def __init__(self):
     self.model = self.__facenet_model()
+
+  def predictBase64(self,base64Str):
+
+    #Decode base64 -> PIL image type
+    base64PILImg = self.__stringToPILType(base64Str)
+
+    #Predict
+    return self.predict(base64PILImg)
 
   def predict(self, image):
     image = img_to_array(image)
@@ -20,6 +34,15 @@ class FacenetModel:
     # flatten để trả về mảng 1 chiều, dễ lưu data
     return self.model.predict(image).flatten()
 
+  def __stringToPILType(self,base64_string):
+    
+    str = base64_string.replace(' ', '+')
+    imgdata = base64.b64decode(str)
+
+    img = Image.open(io.BytesIO(imgdata))
+    img = img.resize((224, 224))
+    grayscale = ImageOps.grayscale(img)
+    return grayscale
 
   def __facenet_model(self):
     model = VGG16(include_top=True, weights=None, input_tensor=Input(shape=(224, 224, 1)))
