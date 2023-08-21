@@ -1,24 +1,34 @@
 from flask import Flask
 from flask import request
-# from pymongo import MongoClient
+from database import FirebaseDB
 from model_handler.modelHandler import FacenetModel
 from keras.preprocessing.image import load_img
-import numpy as np
+import uuid
 
 
 facenetModel = FacenetModel()
 app = Flask(__name__)
-# client = MongoClient(host='0.0.0.0', port=105)
+database = FirebaseDB()
 
-@app.route('/hello/', methods=['GET', 'POST'])
-def welcome():
+@app.route('/faceAuth/', methods=['GET', 'POST'])
+def faceAuth():
 
     args = request.args
     base64Str = args["base64"]
-    print(base64Str)
     prediction = facenetModel.predictBase64(base64Str)
-    print(prediction)
 
+    faceExist,bestID = database.compareFaceData(faceFeatures=prediction)
+
+    resp = {
+        "code": 0,
+        "faceExist": faceExist,
+        "bestID": bestID,
+    }
+
+    return resp
+
+@app.route('/updateUser/', methods=['GET', 'POST'])
+def updateUser():
     resp = {"success": True}
 
     return resp

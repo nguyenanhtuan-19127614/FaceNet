@@ -35,7 +35,7 @@ class FacenetModel:
     return self.model.predict(image).flatten()
 
   def __stringToPILType(self,base64_string):
-    
+
     str = base64_string.replace(' ', '+')
     imgdata = base64.b64decode(str)
 
