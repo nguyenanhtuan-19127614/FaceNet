@@ -51,7 +51,7 @@ class FaceComparationView: UIView {
         
         faceImgDetected.image = .actions
         faceImgDatabase.image = .add
-        connectionView.backgroundColor = .sky()
+        connectionView.backgroundColor = .hcmusColor()
         
         faceImgDetected
         .addLeadingConstraint(to: self)
@@ -82,12 +82,12 @@ class FaceComparationView: UIView {
         faceImgDatabase.contentMode = .scaleAspectFit
         faceImgDetected.layer.masksToBounds = true
         faceImgDetected.layer.borderWidth = 4
-        faceImgDetected.layer.borderColor = UIColor.sky().cgColor
+        faceImgDetected.layer.borderColor = UIColor.hcmusColor().cgColor
         
         faceImgDatabase.contentMode = .scaleAspectFit
         faceImgDatabase.layer.masksToBounds = true
         faceImgDatabase.layer.borderWidth = 4
-        faceImgDatabase.layer.borderColor = UIColor.sky().cgColor
+        faceImgDatabase.layer.borderColor = UIColor.hcmusColor().cgColor
         
     }
     

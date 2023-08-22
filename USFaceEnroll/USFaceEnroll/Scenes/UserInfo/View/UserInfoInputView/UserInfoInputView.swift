@@ -71,7 +71,7 @@ class UserInfoInputView: UIView {
         
         self.backgroundColor = .white
         self.layer.masksToBounds = true
-        self.layer.borderColor = UIColor.sky().cgColor
+        self.layer.borderColor = UIColor.hcmusColor().cgColor
         self.layer.borderWidth = 2
         self.layer.cornerRadius = 8
         
@@ -87,7 +87,7 @@ class UserInfoInputView: UIView {
         case .input:
             textField.attributedPlaceholder = NSAttributedString(string: self.uiType.rawValue,
                                                                  attributes: [
-                                                                    .foregroundColor: UIColor.gray
+                                                                    .foregroundColor: UIColor.hcmusLightColor()
                                                                  ])
         case .view:
             textField.isEnabled = false

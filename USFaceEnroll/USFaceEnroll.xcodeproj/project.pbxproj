@@ -25,6 +25,7 @@
 		860F0DCF2A952278009156A5 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860F0DCE2A952278009156A5 /* UIColor+Extensions.swift */; };
 		860F0DD12A952334009156A5 /* UserInfoInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860F0DD02A952334009156A5 /* UserInfoInputView.swift */; };
 		860F0DD42A95269F009156A5 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860F0DD32A95269F009156A5 /* UserInfoView.swift */; };
+		860F0DD62A9539CF009156A5 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860F0DD52A9539CF009156A5 /* UIImage+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +50,7 @@
 		860F0DCE2A952278009156A5 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		860F0DD02A952334009156A5 /* UserInfoInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoInputView.swift; sourceTree = "<group>"; };
 		860F0DD32A95269F009156A5 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
+		860F0DD52A9539CF009156A5 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		8ADD002131C1F4BA3BA4A1DF /* Pods_USFaceEnroll.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_USFaceEnroll.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -232,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				860F0DCE2A952278009156A5 /* UIColor+Extensions.swift */,
+				860F0DD52A9539CF009156A5 /* UIImage+Extensions.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				860F0DBA2A94A3FF009156A5 /* APIRequest.swift in Sources */,
 				860F0DB82A94A3F6009156A5 /* APIResponse.swift in Sources */,
 				860F0DC52A951177009156A5 /* UserInfoVC.swift in Sources */,
+				860F0DD62A9539CF009156A5 /* UIImage+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

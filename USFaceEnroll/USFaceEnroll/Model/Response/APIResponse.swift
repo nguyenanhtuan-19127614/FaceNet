@@ -14,11 +14,17 @@ struct APIResponse {
         let code: Int
         let faceExist: Bool
         let bestID: String
+        let username: String?
+        let phone: String?
+        let faceBase64: String?
         
         enum CodingKeys: String, CodingKey {
             case code = "code"
             case faceExist = "faceExist"
             case bestID = "bestID"
+            case username = "username"
+            case phone = "phone"
+            case faceBase64 = "faceBase64"
         }
         
     }

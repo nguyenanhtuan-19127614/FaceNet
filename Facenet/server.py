@@ -15,18 +15,45 @@ def faceAuth():
 
     json = request.json
     base64Str = json["base64"]
-    print(base64Str)
     prediction = facenetModel.predictBase64(base64Str)
 
     faceExist,bestID = database.compareFaceData(faceFeatures=prediction)
 
-    resp = {
-        "code": 0,
-        "faceExist": faceExist,
-        "bestID": bestID,
-    }
+    if faceExist == False:
 
-    return resp
+        database.saveNewFaceID(faceFeatures=prediction,
+                               id=str(uuid.uuid4()),
+                               faceBase64=base64Str)
+        resp = {
+            "code": 0,
+            "message": "Face does not exist",
+            "faceExist": False,
+            "bestID": ""
+        }
+        return resp
+
+    else:
+        userData = database.getUserDataByID(id=bestID)
+        if userData == None:
+            resp = {
+                "code": 0,
+                "message": "Face exist but not found ID",
+                "faceExist": True,
+                "bestID": ""
+            }
+            return resp
+        else:
+            resp = {
+                "code": 0,
+                "faceExist": True,
+                "message": "Get data success",
+                "bestID": bestID,
+                "username": userData.username,
+                "phone": userData.phone,
+                "faceBase64": userData.base64,
+            }
+            return resp
+
 
 @app.route('/updateUser/', methods=['GET', 'POST'])
 def updateUser():

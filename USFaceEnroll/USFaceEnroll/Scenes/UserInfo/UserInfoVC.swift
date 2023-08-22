@@ -17,9 +17,10 @@ final class UserInfoVC: UIViewController {
     fileprivate var faceDetectedImage: UIImage?
     fileprivate var faceDBImage: UIImage?
     
-    convenience init(faceImg: UIImage) {
+    convenience init(faceImg: UIImage?, dbImg: UIImage?) {
         self.init()
         self.faceDetectedImage = faceImg
+        self.faceDBImage = dbImg
     }
     
     override func viewDidLoad() {

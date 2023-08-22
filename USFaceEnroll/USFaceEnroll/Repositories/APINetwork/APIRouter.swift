@@ -11,7 +11,7 @@ import Alamofire
 enum APIRouter: URLRequestConvertible {
    
     private var baseURL: String {
-        return "http://172.16.16.150:105"
+        return "http://192.168.101.5:105"
     }
     
     case faceAuth(APIRequest.FaceAuth)

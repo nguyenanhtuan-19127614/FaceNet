@@ -51,29 +51,47 @@ extension FaceDetectVC: ATCameraViewDelegate {
         faceDetected = true
         self.cameraView.stopCamera()
         
-//        guard let resizedImage = self.imageWithImage(image:faceImage, scaledToSize: CGSize(width: 224, height: 224)) else {
-//            return
-//        }
-//        let imageData = resizedImage.jpegData(compressionQuality: 1)
-//        let base64Str = imageData?.base64EncodedString() ?? ""
-//        let req = APIRequest.FaceAuth(base64: base64Str)
-//        APINetworking.shared.faceAuth(req: req, completion: { result in
-//
-//            switch result {
-//
-//            case .success(let resp):
-//                print(resp)
-//            case .failure(let err):
-//                print(err)
-//            }
-//
-//        })
+        guard let resizedImage = self.imageWithImage(image:faceImage, scaledToSize: CGSize(width: 224, height: 224)) else {
+            return
+        }
+        let imageData = resizedImage.jpegData(compressionQuality: 1)
+        let base64Str = imageData?.base64EncodedString() ?? ""
+        let req = APIRequest.FaceAuth(base64: base64Str)
         
-        DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: { [weak self] in
-            let vc = UserInfoVC(faceImg: faceImage)
-            self?.navigationController?.pushViewController(vc, animated: true)
+        let apiDGroup = DispatchGroup()
+        var apiResp: APIResponse.FaceAuth? = nil
+        
+        apiDGroup.enter()
+        APINetworking.shared.faceAuth(req: req, completion: { result in
+
+            switch result {
+
+            case .success(let resp):
+                apiResp = resp
+                print(resp)
+            case .failure(let err):
+                print(err)
+            }
+            
+            apiDGroup.leave()
         })
-       
+        
+        //Handle response
+        apiDGroup.notify(queue: .main, execute: { [weak self] in
+            
+            guard let resp = apiResp else {
+                return
+            }
+            let faceExist = resp.faceExist
+            
+            if faceExist {
+                let vc = UserInfoVC(faceImg: faceImage,
+                                    dbImg: UIImage(base64: resp.faceBase64 ?? ""))
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            
+        })
         
     }
     
