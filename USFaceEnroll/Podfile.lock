@@ -1,0 +1,39 @@
+PODS:
+  - Alamofire (5.7.1)
+  - ATBaseExtensions (0.0.2)
+  - ATFaceDetectCamera (0.0.3):
+    - ATBaseExtensions (~> 0.0.2)
+
+DEPENDENCIES:
+  - Alamofire
+  - ATBaseExtensions (from `https://github.com/ATiOSModule/ATBaseExtensions.git`, tag `0.0.2`)
+  - ATFaceDetectCamera (from `https://github.com/ATiOSModule/ATFaceDetectCamera.git`, tag `0.0.3`)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+
+EXTERNAL SOURCES:
+  ATBaseExtensions:
+    :git: https://github.com/ATiOSModule/ATBaseExtensions.git
+    :tag: 0.0.2
+  ATFaceDetectCamera:
+    :git: https://github.com/ATiOSModule/ATFaceDetectCamera.git
+    :tag: 0.0.3
+
+CHECKOUT OPTIONS:
+  ATBaseExtensions:
+    :git: https://github.com/ATiOSModule/ATBaseExtensions.git
+    :tag: 0.0.2
+  ATFaceDetectCamera:
+    :git: https://github.com/ATiOSModule/ATFaceDetectCamera.git
+    :tag: 0.0.3
+
+SPEC CHECKSUMS:
+  Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  ATBaseExtensions: 9a45ef336566e8028b2fe13c2da9f3db33b18dc5
+  ATFaceDetectCamera: 0c939518472c1c016eb6ee787f0e3dd202a45019
+
+PODFILE CHECKSUM: 9a2da15a8e653587a718f08c0c33b9ca39e4a4c0
+
+COCOAPODS: 1.12.1

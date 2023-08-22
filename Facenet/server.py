@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import request
+from flask import request, json
 from database import FirebaseDB
 from model_handler.modelHandler import FacenetModel
 from keras.preprocessing.image import load_img
@@ -10,11 +10,12 @@ facenetModel = FacenetModel()
 app = Flask(__name__)
 database = FirebaseDB()
 
-@app.route('/faceAuth/', methods=['GET', 'POST'])
+@app.route('/faceAuth/', methods=['POST'])
 def faceAuth():
 
-    args = request.args
-    base64Str = args["base64"]
+    json = request.json
+    base64Str = json["base64"]
+    print(base64Str)
     prediction = facenetModel.predictBase64(base64Str)
 
     faceExist,bestID = database.compareFaceData(faceFeatures=prediction)
