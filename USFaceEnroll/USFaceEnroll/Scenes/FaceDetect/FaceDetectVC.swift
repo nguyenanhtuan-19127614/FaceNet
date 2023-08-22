@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FaceDetectVC.swift
 //  USFaceEnroll
 //
 //  Created by Wee on 22/08/2023.
@@ -10,9 +10,10 @@ import ATFaceDetectCamera
 import ATBaseExtensions
 import Vision
 
-class ViewController: UIViewController {
+class FaceDetectVC: UIViewController {
 
     let cameraView: ATCameraViewInterface = ATCameraView()
+    fileprivate var faceDetected: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,29 +40,40 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: ATCameraViewDelegate {
+extension FaceDetectVC: ATCameraViewDelegate {
     
     func cameraViewOutput(sender: ATCameraViewInterface, faceImage: UIImage, fullImage: UIImage, boundingBox: CGRect) {
         print("Success: \(boundingBox)")
-        self.cameraView.stopCamera()
         
-        guard let resizedImage = self.imageWithImage(image:faceImage, scaledToSize: CGSize(width: 224, height: 224)) else {
+        if faceDetected {
             return
         }
-        let imageData = resizedImage.jpegData(compressionQuality: 1)
-        let base64Str = imageData?.base64EncodedString() ?? ""
-        let req = APIRequest.FaceAuth(base64: base64Str)
-        APINetworking.shared.faceAuth(req: req, completion: { result in
-
-            switch result {
-
-            case .success(let resp):
-                print(resp)
-            case .failure(let err):
-                print(err)
-            }
-
+        faceDetected = true
+        self.cameraView.stopCamera()
+        
+//        guard let resizedImage = self.imageWithImage(image:faceImage, scaledToSize: CGSize(width: 224, height: 224)) else {
+//            return
+//        }
+//        let imageData = resizedImage.jpegData(compressionQuality: 1)
+//        let base64Str = imageData?.base64EncodedString() ?? ""
+//        let req = APIRequest.FaceAuth(base64: base64Str)
+//        APINetworking.shared.faceAuth(req: req, completion: { result in
+//
+//            switch result {
+//
+//            case .success(let resp):
+//                print(resp)
+//            case .failure(let err):
+//                print(err)
+//            }
+//
+//        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+2, execute: { [weak self] in
+            let vc = UserInfoVC(faceImg: faceImage)
+            self?.navigationController?.pushViewController(vc, animated: true)
         })
+       
         
     }
     
