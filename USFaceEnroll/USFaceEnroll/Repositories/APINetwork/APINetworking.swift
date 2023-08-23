@@ -57,7 +57,7 @@ final class APINetworking {
 }
 
 extension APINetworking: APINetworkingInterface {
-    
+   
     func faceAuth(req: APIRequest.FaceAuth, completion: @escaping ResponseResult<APIResponse.FaceAuth>) {
         
         self.request(router: .faceAuth(req),
@@ -67,5 +67,16 @@ extension APINetworking: APINetworkingInterface {
         })
         
     }
+    
+    func updateUser(req: APIRequest.UpdateUser, completion: @escaping ResponseResult<APIResponse.UpdateUser>) {
+        
+        self.request(router: .updateUser(req),
+                     respType: APIResponse.UpdateUser.self,
+                     completion: { result in
+            completion(result)
+        })
+        
+    }
+    
     
 }

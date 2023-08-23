@@ -11,17 +11,17 @@ import Alamofire
 enum APIRouter: URLRequestConvertible {
    
     private var baseURL: String {
-        return "http://192.168.101.5:105"
+        return "http://172.16.16.127:105"
     }
     
     case faceAuth(APIRequest.FaceAuth)
-    case updateUser
+    case updateUser(APIRequest.UpdateUser)
     
     private var path: String {
         switch self {
         case .faceAuth(_):
             return "/faceAuth"
-        case .updateUser:
+        case .updateUser(_):
             return "/updateUser"
         }
     }
@@ -30,7 +30,7 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .faceAuth(_):
             return .post
-        case .updateUser:
+        case .updateUser(_):
             return .post
         }
     }
@@ -39,8 +39,8 @@ enum APIRouter: URLRequestConvertible {
         switch self {
         case .faceAuth(let param):
             return param.toDict()
-        case .updateUser:
-            return nil
+        case .updateUser(let param):
+            return param.toDict()
         }
     }
     

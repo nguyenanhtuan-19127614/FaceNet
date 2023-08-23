@@ -46,6 +46,14 @@ class UserInfoInputView: UIView {
         setupUIByState()
     }
     
+    func setText(str: String) {
+        self.textField.text = str
+    }
+    
+    func getText() -> String {
+        return self.textField.text ?? ""
+    }
+    
     //MARK: Setup Func
     func commonInit() {
         setupLayout()
@@ -90,6 +98,7 @@ class UserInfoInputView: UIView {
                                                                     .foregroundColor: UIColor.hcmusLightColor()
                                                                  ])
         case .view:
+            textField.placeholder?.removeAll()
             textField.isEnabled = false
         }
         

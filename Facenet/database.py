@@ -6,14 +6,15 @@ from enum import Enum
 import numpy as np
 
 class UserState(Enum):
-    NODATA = "NoData"
+    NOINFO = "NOINFO"
     COMPLETED = "COMPLETED"
 
 class UserData:
-    def __init__(self, username, phone, base64):
+    def __init__(self, username, phone, base64, state):
         self.username = username
         self.phone = phone
         self.base64 = base64
+        self.state = state
 
 class FirebaseDB:
 
@@ -33,7 +34,7 @@ class FirebaseDB:
             "id": id,
             "name": "",
             "phone": "",
-            "state": UserState.NODATA.value,
+            "state": UserState.NOINFO.value,
             "faceBase64": faceBase64
         }
 
@@ -46,7 +47,6 @@ class FirebaseDB:
     def updateUserID(self, name, phone, id):
 
         userDocument = {
-            "id": id,
             "name": name,
             "phone": phone,
             "state": UserState.COMPLETED.value
@@ -64,7 +64,8 @@ class FirebaseDB:
             doc = docs[0].to_dict()
             userData = UserData(username=doc["name"],
                                 phone=doc["phone"],
-                                base64=doc["faceBase64"])
+                                base64=doc["faceBase64"],
+                                state= doc["state"])
             return userData
 
     def getUserData(self):

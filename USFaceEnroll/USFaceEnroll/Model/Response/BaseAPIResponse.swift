@@ -9,6 +9,7 @@ import Foundation
 
 protocol BaseAPIResponse: Codable {
     var code: Int { get }
+    var message: String { get }
 }
 
 extension BaseAPIResponse {

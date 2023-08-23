@@ -11,12 +11,17 @@ import SwiftUI
 
 class FaceComparationView: UIView {
     
+    enum UIType {
+        case Enroll
+        case Compare
+    }
+    
     //MARK: Variable
     fileprivate let faceImgDetected: UIImageView = UIImageView()
     lazy fileprivate var faceImgDatabase: UIImageView = UIImageView()
     lazy fileprivate var connectionView: UIView = UIView()
     
-    
+    fileprivate var type: UIType = .Compare
     //MARK: Init
     override public init(frame: CGRect) { //for custom view
         super.init(frame: frame)
@@ -28,6 +33,11 @@ class FaceComparationView: UIView {
         commonInit()
     }
     
+    func updateUI(type: UIType) {
+        self.type = type
+        setupLayout()
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         self.setupCircleView()
@@ -35,11 +45,11 @@ class FaceComparationView: UIView {
     
     //MARK: Setup Func
     func commonInit() {
-        setupLayout()
+        commonLayout()
         setupUI()
     }
     
-    fileprivate func setupLayout() {
+    fileprivate func commonLayout() {
         
         faceImgDetected.translatesAutoresizingMaskIntoConstraints = false
         faceImgDatabase.translatesAutoresizingMaskIntoConstraints = false
@@ -48,10 +58,23 @@ class FaceComparationView: UIView {
         self.addSubview(faceImgDetected)
         self.addSubview(faceImgDatabase)
         self.addSubview(connectionView)
+
+    }
+    
+    fileprivate func setupLayout() {
+       
+        switch self.type {
+        case .Compare:
+            updateComparationLayout()
+        case .Enroll:
+            updateEnrollLayout()
+        }
         
-        faceImgDetected.image = .actions
-        faceImgDatabase.image = .add
-        connectionView.backgroundColor = .hcmusColor()
+        self.layoutIfNeeded()
+        
+    }
+    
+    fileprivate func updateComparationLayout() {
         
         faceImgDetected
         .addLeadingConstraint(to: self)
@@ -77,7 +100,22 @@ class FaceComparationView: UIView {
         
     }
     
+    
+    fileprivate func updateEnrollLayout() {
+        faceImgDatabase.removeFromSuperview()
+        connectionView.removeFromSuperview()
+        NSLayoutConstraint.activate([
+            
+            faceImgDetected.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            faceImgDetected.heightAnchor.constraint(equalTo: self.heightAnchor),
+            faceImgDetected.widthAnchor.constraint(equalTo: faceImgDetected.heightAnchor, multiplier: 1),
+          
+        ])
+    }
+    
     fileprivate func setupUI() {
+        
+        connectionView.backgroundColor = .hcmusColor()
         
         faceImgDatabase.contentMode = .scaleAspectFit
         faceImgDetected.layer.masksToBounds = true
@@ -100,6 +138,7 @@ class FaceComparationView: UIView {
         self.faceImgDetected.image = faceDetected
         self.faceImgDatabase.image = faceDB
     }
+    
     
 }
 

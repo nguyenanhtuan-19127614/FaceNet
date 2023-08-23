@@ -60,6 +60,7 @@ extension FaceDetectVC: ATCameraViewDelegate {
         
         let apiDGroup = DispatchGroup()
         var apiResp: APIResponse.FaceAuth? = nil
+        var userType: UserInfoVC.UIType = .None
         
         apiDGroup.enter()
         APINetworking.shared.faceAuth(req: req, completion: { result in
@@ -84,16 +85,34 @@ extension FaceDetectVC: ATCameraViewDelegate {
             }
             let faceExist = resp.faceExist
             
+            
             if faceExist {
-                let vc = UserInfoVC(faceImg: faceImage,
-                                    dbImg: UIImage(base64: resp.faceBase64 ?? ""))
-                self?.navigationController?.pushViewController(vc, animated: true)
+                let userState = UserState(rawValue: resp.state ?? "")
+               
+                if userState == .completed {
+                    userType = .View
+                } else {
+                    userType = .Update
+                }
+                
+            } else {
+                userType = .Enroll
             }
             
+            let userInfoData = UserInfoModel(imageDB: UIImage(base64: resp.faceBase64 ?? ""),
+                                             username: resp.username,
+                                             phone: resp.phone,
+                                             id: resp.bestID)
+            let vc = UserInfoVC(faceImg: faceImage,
+                                userInfo: userInfoData,
+                                type: userType)
+            self?.push(vc: vc)
             
         })
         
     }
+    
+    
     
     func cameraViewOutput(sender: ATCameraViewInterface, invalidFace: VNFaceObservation, invalidType: ATCameraView.FaceState) {
         print("SuccessNot: \(invalidType)")

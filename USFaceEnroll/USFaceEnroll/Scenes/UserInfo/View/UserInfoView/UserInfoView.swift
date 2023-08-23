@@ -10,6 +10,11 @@ import UIKit
 
 class UserInfoView: UIView {
     
+    enum UIType {
+        case Input
+        case View
+    }
+    
     //MARK: Variable
     private let stackView: UIStackView = UIStackView()
     
@@ -31,12 +36,11 @@ class UserInfoView: UIView {
     }
     
     //MARK: Setup Func
-    func commonInit() {
+    fileprivate func commonInit() {
         setupLayout()
-        setupUI()
     }
     
-    func setupLayout() {
+    fileprivate func setupLayout() {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         usernameInfoView.translatesAutoresizingMaskIntoConstraints = false
@@ -59,10 +63,27 @@ class UserInfoView: UIView {
         stackView.addArrangedSubview(phoneInfoView)
     }
     
-    func setupUI() {
-        usernameInfoView.setupData(state: .input, type: .username)
-        phoneInfoView.setupData(state: .input, type: .phone)
+    func setupUI(type: UIType, name: String = "", phone: String = "") {
+        
+        switch type {
+        case .Input:
+            usernameInfoView.setupData(state: .input, type: .username)
+            phoneInfoView.setupData(state: .input, type: .phone)
+        case .View:
+            usernameInfoView.setupData(state: .view, type: .username)
+            usernameInfoView.setText(str: name)
+            phoneInfoView.setupData(state: .view, type: .phone)
+            phoneInfoView.setText(str: phone)
+        }
+      
     }
     
+    public func getUsername() -> String {
+        return usernameInfoView.getText()
+    }
+    
+    public func getPhonenumber() -> String {
+        return phoneInfoView.getText()
+    }
     
 }

@@ -12,5 +12,6 @@ typealias ResponseResult<T:BaseAPIResponse> = ((Result<T, APINetworking.AError>)
 protocol APINetworkingInterface {
     
     func faceAuth(req: APIRequest.FaceAuth, completion: @escaping ResponseResult<APIResponse.FaceAuth>)
+    func updateUser(req: APIRequest.UpdateUser, completion: @escaping ResponseResult<APIResponse.UpdateUser>)
     
 }

@@ -19,4 +19,18 @@ struct APIRequest {
         
     }
     
+    struct UpdateUser: BaseAPIRequest {
+        
+        let id: String
+        let username: String
+        let phone: String
+        
+        enum CodingKeys: String, CodingKey {
+            case id = "id"
+            case username = "username"
+            case phone = "phone"
+        }
+        
+    }
+    
 }

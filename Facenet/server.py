@@ -51,13 +51,24 @@ def faceAuth():
                 "username": userData.username,
                 "phone": userData.phone,
                 "faceBase64": userData.base64,
+                "state": userData.state
             }
             return resp
 
 
 @app.route('/updateUser/', methods=['GET', 'POST'])
 def updateUser():
-    resp = {"success": True}
+
+    json = request.json
+    username = json["username"]
+    phone = json["phone"]
+    id = json["id"]
+    database.updateUserID(name=username,
+                          phone=phone,id=id)
+    resp = {
+        "code": 0,
+        "message": "Update success",
+    }
 
     return resp
 
