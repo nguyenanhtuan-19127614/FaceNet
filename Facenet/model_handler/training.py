@@ -108,6 +108,6 @@ model.compile(
 
 gen_train = tf.data.Dataset.from_tensor_slices((np.expand_dims(X_train, axis=-1), y_train)).repeat().shuffle(1024).batch(32)
 
-history = model.fit(gen_train,steps_per_epoch=25,epochs=10)
+history = model.fit(gen_train,steps_per_epoch=50,epochs=10)
 model.save('models/face_yale.h5')
 
