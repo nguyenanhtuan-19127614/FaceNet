@@ -21,14 +21,15 @@ def faceAuth():
 
     if faceExist == False:
 
+        id = str(uuid.uuid4())
         database.saveNewFaceID(faceFeatures=prediction,
-                               id=str(uuid.uuid4()),
+                               id=id,
                                faceBase64=base64Str)
         resp = {
             "code": 0,
             "message": "Face does not exist",
             "faceExist": False,
-            "bestID": ""
+            "bestID": id
         }
         return resp
 
@@ -63,8 +64,12 @@ def updateUser():
     username = json["username"]
     phone = json["phone"]
     id = json["id"]
+
+    print(json)
+
     database.updateUserID(name=username,
-                          phone=phone,id=id)
+                          phone=phone,
+                          id=id)
     resp = {
         "code": 0,
         "message": "Update success",

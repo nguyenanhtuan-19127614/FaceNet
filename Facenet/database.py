@@ -96,7 +96,9 @@ class FirebaseDB:
             dataArr = np.asarray(dataFaceFeats)
 
             distance = np.linalg.norm(faceFeatures-dataArr)
-            if distance < 0.4 and distance < bestDistance:
+            print(dataID)
+            print(distance)
+            if distance < 0.6 and distance < bestDistance:
                 bestDistance = distance
                 faceExist = True
                 bestID = dataID
